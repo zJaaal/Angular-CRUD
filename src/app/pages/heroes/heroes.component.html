@@ -9,7 +9,10 @@
     </button>
   </div>
 </div>
-<table class="table table-dark table-striped mt-3 animated fadeIn">
+<table
+  *ngIf="!loading && heroes.length"
+  class="table table-dark table-striped mt-3 animated fadeIn"
+>
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -32,18 +35,23 @@
         <button class="btn btn-info me-2" [routerLink]="['/hero', hero.id]">
           <i class="fa fa-pen"></i>
         </button>
-        <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+        <button class="btn btn-danger" (click)="deleteHero(hero.id!)">
+          <i class="fa fa-trash"></i>
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
 
-<div class="alert alert-info text-center mt-3">
+<div *ngIf="loading" class="alert alert-info text-center mt-3">
   <h4 class="alert-heading">Loading</h4>
   <i class="fa fa-sync-alt fa-spin fa-2x"></i>
   <p class="mb-0">Please Wait...</p>
 </div>
-<div class="alert alert-warning text-center mt-3">
+<div
+  *ngIf="!loading && !heroes.length"
+  class="alert alert-warning text-center mt-3"
+>
   <h4 class="alert-heading">Nothing found</h4>
   <i class="fa fa-exclamation fa-2x"></i>
 </div>
