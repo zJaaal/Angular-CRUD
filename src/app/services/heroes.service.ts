@@ -43,4 +43,7 @@ export class HeroesService {
       })
     );
   }
+  getHero(id: string) {
+    return this.http.get(`${this.URL}/heroes/${id}.json`);
+  }
 }
