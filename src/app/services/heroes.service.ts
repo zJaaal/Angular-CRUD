@@ -46,4 +46,7 @@ export class HeroesService {
   getHero(id: string) {
     return this.http.get(`${this.URL}/heroes/${id}.json`);
   }
+  deleteHero(id: string) {
+    return this.http.delete(`${this.URL}/heroes/${id}.json`);
+  }
 }
