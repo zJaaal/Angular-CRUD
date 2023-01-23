@@ -30,6 +30,17 @@ export class HeroesService {
   }
 
   getHeroes() {
-    return this.http.get(`${this.URL}/heroes.json`);
+    return this.http.get(`${this.URL}/heroes.json`).pipe(
+      map((response: any) => {
+        if (response == null) return [];
+
+        return Object.keys(response).map((key) => {
+          return {
+            ...response[key],
+            id: key,
+          } as HeroModel;
+        });
+      })
+    );
   }
 }
