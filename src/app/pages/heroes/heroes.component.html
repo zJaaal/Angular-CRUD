@@ -43,14 +43,14 @@
   </tbody>
 </table>
 
-<div *ngIf="loading" class="alert alert-info text-center mt-3">
+<div *ngIf="loading" class="alert alert-info text-center mt-3 animated fadeIn">
   <h4 class="alert-heading">Loading</h4>
   <i class="fa fa-sync-alt fa-spin fa-2x"></i>
   <p class="mb-0">Please Wait...</p>
 </div>
 <div
   *ngIf="!loading && !heroes.length"
-  class="alert alert-warning text-center mt-3"
+  class="alert alert-warning text-center mt-3 animated fadeIn"
 >
   <h4 class="alert-heading">Nothing found</h4>
   <i class="fa fa-exclamation fa-2x"></i>
