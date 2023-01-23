@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HeroModel } from 'src/app/models/hero.model';
 import { HeroesService } from 'src/app/services/heroes.service';
@@ -13,10 +14,18 @@ import Swal from 'sweetalert2';
 export class HeroComponent implements OnInit {
   hero = new HeroModel();
 
-  constructor(private heroeService: HeroesService) {}
+  constructor(
+    private heroService: HeroesService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    if (id == 'new') return;
+
+    this.heroService.getHero(id as string).subscribe((response: any) => {
+      this.hero = { ...response, id };
+    });
   }
 
   save(form: NgForm) {
@@ -33,9 +42,9 @@ export class HeroComponent implements OnInit {
     let currentRequest: Observable<any>;
 
     if (this.hero.id) {
-      currentRequest = this.heroeService.updateHero(this.hero);
+      currentRequest = this.heroService.updateHero(this.hero);
     } else {
-      currentRequest = this.heroeService.createHero(this.hero);
+      currentRequest = this.heroService.createHero(this.hero);
     }
 
     currentRequest.subscribe((response) => {
